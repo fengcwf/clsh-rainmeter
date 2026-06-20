@@ -1,48 +1,69 @@
 -- Dino.lua
 -- PixelDesk Dino AI State Machine
--- Chrome Dino + GameBoy Sprite + 8bit RPG NPC style
 
 state = "idle"
 frame = 1
 timer = 0
-exp = 780
+exp = 0
 maxExp = 1200
-level = 12
+level = 1
 baseY = 700
 bounce = 0
 musicPlaying = false
 
 function Initialize()
+    -- Load saved data
+    local savePath = SKIN:MakePathAbsolute("@Resources\\Data\\Save.inc")
+    local f = io.open(savePath, "r")
+    if f then
+        for line in f:lines() do
+            local k, v = line:match("(%w+)=(%d+)")
+            if k == "Level" then level = tonumber(v) end
+            if k == "Exp" then exp = tonumber(v) end
+            if k == "MaxExp" then maxExp = tonumber(v) end
+        end
+        f:close()
+    end
+end
+
+function Save()
+    local savePath = SKIN:MakePathAbsolute("@Resources\\Data\\Save.inc")
+    local f = io.open(savePath, "w")
+    if f then
+        f:write("Level=" .. level .. "\n")
+        f:write("Exp=" .. exp .. "\n")
+        f:write("MaxExp=" .. maxExp .. "\n")
+        f:close()
+    end
 end
 
 function Update()
     timer = timer + 1
 
-    -- Music bounce sync
     if musicPlaying then
         bounce = math.floor(math.sin(timer * 0.3) * 8)
     else
         bounce = 0
     end
 
-    -- Random behavior every 30 seconds
     if timer % 30 == 0 and state == "idle" then
-        local r = math.random(1, 3)
-        if r == 1 then
+        if math.random(1, 3) == 1 then
             state = "walk"
         end
     end
 
-    -- State machine
     if state == "idle" then
         frame = (frame % 2) + 1
+        return "idle" .. frame
 
     elseif state == "walk" then
         frame = (frame % 2) + 1
         if timer % 15 == 0 then
             state = "idle"
             frame = 1
+            return "idle1"
         end
+        return "walk" .. frame
 
     elseif state == "eat" then
         frame = (frame % 4) + 1
@@ -55,17 +76,22 @@ function Update()
                 exp = exp - maxExp
                 maxExp = maxExp + 200
             end
+            Save()
+            return "idle1"
         end
+        return "eat" .. frame
 
     elseif state == "jump" then
         frame = (frame % 2) + 1
         if timer % 10 == 0 then
             state = "idle"
             frame = 1
+            return "idle1"
         end
+        return "jump" .. frame
     end
 
-    return frame
+    return "idle1"
 end
 
 function Eat()
@@ -89,26 +115,9 @@ function MusicStop()
     bounce = 0
 end
 
-function GetState()
-    return state
-end
-
-function GetFrame()
-    return frame
-end
-
-function GetExp()
-    return exp
-end
-
-function GetMaxExp()
-    return maxExp
-end
-
-function GetLevel()
-    return level
-end
-
-function GetBounce()
-    return bounce
-end
+function GetState() return state end
+function GetFrame() return frame end
+function GetExp() return exp end
+function GetMaxExp() return maxExp end
+function GetLevel() return level end
+function GetBounce() return bounce end
