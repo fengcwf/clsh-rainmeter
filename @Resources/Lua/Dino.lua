@@ -4,15 +4,14 @@
 state = "idle"
 frame = 1
 timer = 0
-exp = 0
+exp = 780
 maxExp = 1200
-level = 1
+level = 12
 baseY = 700
 bounce = 0
 musicPlaying = false
 
 function Initialize()
-    -- Load saved data
     local savePath = SKIN:MakePathAbsolute("@Resources\\Data\\Save.inc")
     local f = io.open(savePath, "r")
     if f then
@@ -121,3 +120,4 @@ function GetExp() return exp end
 function GetMaxExp() return maxExp end
 function GetLevel() return level end
 function GetBounce() return bounce end
+function GetExpPercent() return math.floor((exp / maxExp) * 100) end
