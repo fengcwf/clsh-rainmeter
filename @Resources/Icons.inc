@@ -1,0 +1,17 @@
+[Variables]
+IconHome=#@#Images\Icons\home.png
+IconChrome=#@#Images\Icons\chrome.png
+IconSteam=#@#Images\Icons\steam.png
+IconVSCode=#@#Images\Icons\vscode.png
+IconDiscord=#@#Images\Icons\discord.png
+IconSpotify=#@#Images\Icons\spotify.png
+IconSettings=#@#Images\Icons\settings.png
+IconPower=#@#Images\Icons\power.png
+IconPlay=#@#Images\Icons\play.png
+IconPause=#@#Images\Icons\pause.png
+IconNext=#@#Images\Icons\next.png
+IconPrev=#@#Images\Icons\prev.png
+IconSunny=#@#Images\Icons\sunny.png
+IconCloudy=#@#Images\Icons\cloudy.png
+IconRainy=#@#Images\Icons\rainy.png
+IconNight=#@#Images\Icons\night.png
