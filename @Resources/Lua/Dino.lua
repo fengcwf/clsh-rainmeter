@@ -4,14 +4,15 @@
 state = "idle"
 frame = 1
 timer = 0
-exp = 780
+exp = 0
 maxExp = 1200
-level = 12
+level = 1
 baseY = 700
 bounce = 0
 musicPlaying = false
 
 function Initialize()
+    -- Load saved data
     local savePath = SKIN:MakePathAbsolute("@Resources\\Data\\Save.inc")
     local f = io.open(savePath, "r")
     if f then
