@@ -1,0 +1,5 @@
+ImgPath=#@#\Images\
+
+; 默认图标映射（占位、按 48x48 网格命名为 icon_0...）
+; 若 icons.png 的实际网格尺寸不同，请使用 tools/extract_icons.py 重新生成或手动调整。
+
